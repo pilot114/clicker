@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\VkApi;
+use App\Services\ImageProccessing;
 
 class VkController extends Controller
 {
@@ -19,13 +20,8 @@ class VkController extends Controller
 		return 'vk';
 	}
 
-	public function cover()
+	public function test(ImageProccessing $image)
 	{
-	    $coverName = storage_path('app/public') . '/cover.png';
-	    $cover = fopen($coverName, 'r');
-	    // add Text to file
-	    // ...
-		$coverArray = $this->vk->uploadGroupCover(['group_id' => 81023175], $cover);
-		return $coverArray;
+        return '$coverArray';
 	}
 }

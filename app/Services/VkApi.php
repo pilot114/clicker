@@ -17,7 +17,7 @@ namespace App\Services;
 
 class VkApi
 {
-	private $vk;
+	public $vk;
 	
 	function __construct()
 	{
@@ -48,6 +48,15 @@ class VkApi
 
 	    $result = null;
 	    $this->vk->request('photos.saveOwnerCoverPhoto', $data)->each(function($i, $v) use (&$result) {
+	    	$result = $v;
+	    });
+	    return $result;
+	}
+
+	public function getGroupInfo($options)
+	{
+		$result = null;
+	    $this->vk->vk->request('groups.getById', $options)->each(function($i, $v) use (&$result) {
 	    	$result = $v;
 	    });
 	    return $result;

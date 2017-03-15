@@ -32,11 +32,12 @@ Route::group(['prefix' => 'selenium'], function () {
 
 Route::group(['prefix' => 'vk'], function () {
 	Route::get('', 'VkController@index');
-	Route::get('cover', 'VkController@cover');
+	Route::get('/test', 'VkController@test');
 });
 
-Route::get('yuotube_like', function(){
-	// https://developers.google.com/youtube/v3/docs/playlists/list
+
+Route::get('youtube_like', function(){
+	// https://developers.google.com/youtube/v3/docs
 
 	$client = new \Google_Client();
 	$client->setApplicationName("ItsClicker");
