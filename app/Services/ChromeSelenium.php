@@ -11,6 +11,8 @@ use Facebook\WebDriver\Remote\WebDriverCapabilityType;
 use Facebook\WebDriver\Exception\WebDriverCurlException;
 use Facebook\WebDriver\Exception\NoSuchDriverException;
 
+// TODO: functional test with js-rich test page
+
 class ChromeSelenium
 {
 	private $seleniumHost = "http://selenium:4444/wd/hub";
@@ -59,6 +61,7 @@ class ChromeSelenium
 		}
 	}
 
+	// TODO __call for: $selenium->wait(WebDriverBy::className('rg_i')); -> $selenium->waitClassName('rg_i');
 	public function wait(WebDriverBy $element)
 	{
 		try {
