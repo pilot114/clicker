@@ -26,7 +26,9 @@ https://advanced.name
 
 
 
-3. Пишем сценарий для Selenium. Кратко:
+
+
+https://github.com/facebook/php-webdriver/wiki
 
 // CHROME options
 // (see http://peter.sh/experiments/chromium-command-line-switches/)
@@ -45,8 +47,9 @@ https://advanced.name
 // $driver->navigate()->refresh();
 // $driver->manage()->window()->maximize();
 
-// $handle = $session->getWindowHandle();
-// $handles = $session->getWindowHandles();
+// tabs
+// $handle = $sdriver->getWindowHandle();
+// $handles = $driver->getWindowHandles();
 // $driver->switchTo()->window($handle);
 
 // using the browser shortcut to create a new tab !!!

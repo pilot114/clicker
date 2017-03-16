@@ -13,7 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\PushCover::class
+        Commands\PushCover::class,
+        Commands\RunClicker::class,
+        Commands\GetImagesFromGoogle::class,
     ];
 
     /**

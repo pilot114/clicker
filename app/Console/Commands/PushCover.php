@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Intervention\Image\Facades\Image;
+use App\Services\ImageProccessing;
 use App\Services\VkApi;
 
 class PushCover extends Command
@@ -37,7 +37,7 @@ class PushCover extends Command
      *
      * @return mixed
      */
-    public function handle(Image $image, VkApi $vk)
+    public function handle(ImageProccessing $image, VkApi $vk)
     {
         $texts = ['Привет Руся', 'Шимбердробля', 'Ya TExTazaza'];
         $text = $texts[array_rand($texts)];
@@ -48,7 +48,7 @@ class PushCover extends Command
         ];
         $image->buildCover($options);
         $cover = fopen(storage_path('app/public') . '/cover2.jpg', 'r');
-        $coverArray = $this->vk->uploadGroupCover(['group_id' => 141515764], $cover);
+        $coverArray = $vk->uploadGroupCover(['group_id' => 141515764], $cover);
 
         return $coverArray;
     }

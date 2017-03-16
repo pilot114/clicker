@@ -15,17 +15,19 @@ class ChromeSelenium
 {
 	private $seleniumHost = "http://selenium:4444/wd/hub";
 	private $screenshotPath;
+
 	public $driver;
 
-	public function __costruct()
+	function __construct()
 	{
-		$this->screenshotPath = storage_path('app/public');
+		$this->screenshotPath = storage_path('app/screenshots');
 	}
 
 	public function createDriver($proxy = null, $sessionId = null)
 	{
 		$capabilities = [
 		    WebDriverCapabilityType::BROWSER_NAME => 'chrome',
+		    'user-agent' => 'whatever you want'
 		];
 
 		if ($proxy) {
@@ -84,9 +86,20 @@ class ChromeSelenium
 		}
 	}
 
-	public function takeScreenshot($element=null)
+	public function clearScreenshotDir()
 	{
-	    $screenshot = $this->screenshotPath . 'full_' . time() . ".png";
+		$files = glob($this->screenshotPath . '/*');
+		foreach ($files as $file){
+			if (is_file($file)) {
+				unlink($file);
+			}
+		}
+	}
+
+	public function takeScreenshot($name, $element=null)
+	{
+		$name = $name . '_' . time() . ".png";
+	    $screenshot = $this->screenshotPath . '/' . $name;
 
 	    $this->driver->takeScreenshot($screenshot);
 	    if(!file_exists($screenshot)) {
@@ -97,26 +110,27 @@ class ChromeSelenium
 	        return $screenshot;
 	    }
 
-	    $element_screenshot = $this->screenshotPath . $element->getText() . '_' . time() . ".png";
+	    $element_screenshot = $this->screenshotPath . '/el_' . $name;
 
-	    $element_width = $element->getSize()->getWidth();
-	    $element_height = $element->getSize()->getHeight();
+        $element_width = $element->getSize()->getWidth();
+        $element_height = $element->getSize()->getHeight();
+        
+        $element_src_x = $element->getLocation()->getX();
+        $element_src_y = $element->getLocation()->getY();
+        
+        // Create image instances
+        $src = imagecreatefrompng($screenshot);
+        $dest = imagecreatetruecolor($element_width, $element_height);
 
-	    $element_src_x = $element->getLocation()->getX();
-	    $element_src_y = $element->getLocation()->getY();
-
-	    $src = imagecreatefrompng($screenshot);
-	    $dest = imagecreatetruecolor($element_width, $element_height);
-
-	    imagecopy($dest, $src, 0, 0, $element_src_x, $element_src_y, $element_width, $element_height);
-	    imagepng($dest, $element_screenshot);
-
-	    unlink($screenshot);
-
-	    if( ! file_exists($element_screenshot)) {
-			response(['error' => 'Could not save element screenshot'])->send();
-	    }
-
-	    return $element_screenshot;
+        // Copy
+        imagecopy($dest, $src, 0, 0, $element_src_x, $element_src_y, $element_width, $element_height);
+        imagepng($dest, $element_screenshot);
+        unlink($screenshot);
+        
+        if( ! file_exists($element_screenshot)) {
+            throw new Exception('Could not save element screenshot');
+        }
+        
+        return $element_screenshot;
 	}
 }
