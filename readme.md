@@ -1,8 +1,6 @@
-## запускаем контейнер с Selenium + Chrome
+## запуск проекта в laradock (см. http://laradock.io)
 
-docker run -d -p 4444:4444 --name chrome selenium/standalone-chrome
-
-
+	docker-compose up -d nginx mysql selenium
 
 ## загружаем список прокси, например:
 
