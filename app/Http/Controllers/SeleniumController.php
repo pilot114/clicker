@@ -37,14 +37,6 @@ class SeleniumController extends Controller
 
     public function proxyCheck()
     {
-		$proxies = [
-			'58.9.99.41:3128', // ++
-			'195.138.86.112:3128', // +-+
-			// '218.76.106.78:3128', // ! (цепочка)
-			'124.88.67.32:843', // ++
-			// '5.hidemyass.com/ip-1/encoded/czovL3d3dy5nb29nbGUuY28udWsvc2VhcmNo', // просрочен
-		];
-		$proxy = $proxies[array_rand($proxies)];
 
 		$this->selenium->createDriver($proxy);
 

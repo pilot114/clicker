@@ -1,6 +1,6 @@
 ## запуск проекта в laradock (см. http://laradock.io)
 
-	docker-compose up -d nginx mysql selenium
+	docker-compose up -d nginx selenium
 
 ## загружаем список прокси, например:
 

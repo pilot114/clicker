@@ -11,6 +11,8 @@ use Facebook\WebDriver\Remote\WebDriverCapabilityType;
 use Facebook\WebDriver\Exception\WebDriverCurlException;
 use Facebook\WebDriver\Exception\NoSuchDriverException;
 
+use Facebook\WebDriver\Chrome\ChromeOptions;
+
 // TODO: functional test with js-rich test page
 
 class ChromeSelenium
@@ -18,6 +20,7 @@ class ChromeSelenium
 	private $seleniumHost = "http://selenium:4444/wd/hub";
 	private $screenshotPath;
 
+	public $useragent;
 	public $driver;
 
 	function __construct()
@@ -27,9 +30,15 @@ class ChromeSelenium
 
 	public function createDriver($proxy = null, $sessionId = null)
 	{
+		$useragents = file(storage_path('app/useragents'), FILE_IGNORE_NEW_LINES);
+		$this->useragent = $useragents[array_rand($useragents)];
+
+		$options = new ChromeOptions();
+		$options->addArguments(['--user-agent=' . $this->useragent]);
+
 		$capabilities = [
 		    WebDriverCapabilityType::BROWSER_NAME => 'chrome',
-		    'user-agent' => 'whatever you want'
+		    ChromeOptions::CAPABILITY => $options
 		];
 
 		if ($proxy) {

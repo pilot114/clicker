@@ -40,42 +40,83 @@ class RunClicker extends Command
      */
     public function handle(ChromeSelenium $selenium, ImageProccessing $i)
     {
-        $selenium->clearScreenshotDir();
-        $selenium->createDriver();
+        function getLines($file) {
+            $f = fopen($file, 'r');
+            if (!$f) throw new Exception();
+            while ($line = fgets($f)) {          
+                yield trim($line);
+            }
+            fclose($f);
+        }
 
-        die();
+        $selenium->clearScreenshotDir();
+
+        // common settings for all bots
         $query = 'hilaces ru';
 
-        $selenium->clearScreenshotDir();
-        $selenium->createDriver();
-        $baseUrl = 'https://www.yandex.ru/';
-        $selenium->driver->get($baseUrl);
 
-        $input = $selenium->driver->findElement(
-            WebDriverBy::cssSelector('input.input__control[name=text]')
-        );
-        $input->sendKeys($query)->submit();
+        foreach (getLines(storage_path('app/proxy_list')) as $proxy) {
+            try {
 
-        sleep(2);
-        $advLi = $selenium->driver->findElements(
-            WebDriverBy::cssSelector('li.serp-adv-item')
-        );
 
-        // TODO: for all advLi
-        $link = $advLi[0]->findElement(WebDriverBy::cssSelector('a.organic__url'));
+            var_dump("Create bot...");
+            $selenium->createDriver($proxy);
 
-        $selenium->takeScreenshot('link', $link);
+            // find site on yandex
+            $baseUrl = 'https://www.yandex.ru/';
+            $selenium->driver->get($baseUrl);
+            $input = $selenium->driver->findElement(
+                WebDriverBy::cssSelector('input.input__control[name=text]')
+            );
+            $input->sendKeys($query)->submit();
 
-        $link->click();
-        sleep(2);
+            sleep(2);
+            $advLi = $selenium->driver->findElements(
+                WebDriverBy::cssSelector('li.serp-adv-item')
+            );
+            // TODO: for all advLi
+            $link = $advLi[0]->findElement(WebDriverBy::cssSelector('a.organic__url'));
+            // $selenium->takeScreenshot('link', $link);
 
-        // change tab
-        $handles = $selenium->driver->getWindowHandles();
-        $selenium->driver->switchTo()->window(end($handles));
 
-        $selenium->takeScreenshot('site');
+            var_dump("Cur proxy: " . $proxy);
+            var_dump("Cur UA: " . $selenium->useragent);
+            var_dump("finded links: " . $link->getText());
+
+            $link->click();
+            sleep(2);
+
+            // change tab
+            $handles = $selenium->driver->getWindowHandles();
+            var_dump(end($handles));
+            $selenium->driver->switchTo()->window(end($handles));
+            var_dump("switch!");
+
+            $sleepped = rand(5, 10);
+            var_dump('sleep rand: ' . $sleepped);
+            sleep($sleepped);
+            // $selenium->takeScreenshot('site');
+
             // $firstFind = $this->webDriver->findElement(WebDriverBy::tag('js-command-bar-field'));
 
-        $selenium->driver->quit();
+            var_dump("Bot delete...");
+            $selenium->driver->quit();
+
+
+            } catch (\Exception $e) {
+                var_dump('error: ' . $e->getMessage());
+                // $selenium->driver->quit();
+                continue;
+            }
+
+            // after
+            $sleepped = rand(10, 60);
+            var_dump('sleep rand: ' . $sleepped);
+        }
+
+
+
+
+
     }
 }
