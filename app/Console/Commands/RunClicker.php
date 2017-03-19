@@ -105,7 +105,7 @@ class RunClicker extends Command
 
             } catch (\Exception $e) {
                 var_dump('error: ' . $e->getMessage());
-                // $selenium->driver->quit();
+                $selenium->driver->quit();
                 continue;
             }
 
