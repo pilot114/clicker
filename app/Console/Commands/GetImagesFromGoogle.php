@@ -18,14 +18,14 @@ class GetImagesFromGoogle extends Command
      *
      * @var string
      */
-    protected $signature = 'getImagesFromGoogle';
+    protected $signature = 'my:ifg';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'get images';
+    protected $description = 'get images from google';
 
     /**
      * Create a new command instance.
