@@ -33,6 +33,7 @@ Route::group(['prefix' => 'selenium'], function () {
 Route::group(['prefix' => 'vk'], function () {
 	Route::get('', 'VkController@index');
 	Route::get('/test', 'VkController@test');
+	Route::get('/group', 'VkController@group');
 });
 
 

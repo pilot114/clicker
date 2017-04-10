@@ -22,7 +22,7 @@ class VkApi
 	function __construct()
 	{
 		$accessToken = "dabbe858a18330263275d401d783766f110f5593c600b3488ceda394abd4e86e7f82dd7b5b9b42bccdb23";
-		$this->vk = \getjump\Vk\Core::getInstance()->apiVersion('5.62')->setToken($accessToken);
+		$this->vk = \getjump\Vk\Core::getInstance()->apiVersion('5.63')->setToken($accessToken);
 	}
 
 	public function uploadGroupCover($options, $file)

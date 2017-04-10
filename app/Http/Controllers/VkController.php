@@ -24,4 +24,23 @@ class VkController extends Controller
 	{
         return '$coverArray';
 	}
+
+	// https://vk.com/dev/groups.search
+	public function group()
+	{
+		$result = null;
+		$options = [
+			'q' => 'Король планеты',
+			'count' => 1000,
+			// 'country_id' =>
+			// 'city_id' =>
+		];
+		$result = [];
+
+		$count = $this->vk->vk->request('groups.search', $options)->count;
+	    $this->vk->vk->request('groups.search', $options)->each(function($i, $v) use (&$result) {
+	    	$result[] = $v;
+	    });
+	    return [$count , $result];
+	}
 }
