@@ -14,7 +14,7 @@ class RunClicker extends Command
      *
      * @var string
      */
-    protected $signature = 'runClicker';
+    protected $signature = 'my:runClicker';
 
     /**
      * The console command description.

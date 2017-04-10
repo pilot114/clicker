@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\VkApi;
 use App\Services\ImageProccessing;
 
-class VkController extends Controller
+class VkApiController extends Controller
 {
 	private $vk;
 

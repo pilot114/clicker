@@ -13,7 +13,7 @@ class PushCover extends Command
      *
      * @var string
      */
-    protected $signature = 'pushCover';
+    protected $signature = 'my:pushCover';
 
     /**
      * The console command description.
