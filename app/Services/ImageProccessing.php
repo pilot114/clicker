@@ -15,23 +15,24 @@ class ImageProccessing
 
 	public function buildCover($options)
 	{
-        $img = Image::make(storage_path('app/public') . '/' . $options['file_in']);
+        $img = Image::make($options['file_in']);
 
         // text
-        $img->text($options['text'], 740, 360, function($font) {
-            $font->file(public_path('font') . '/Werfus.ttf');
-            $font->size(128);
-            $font->color('#fdf6e3');
+        $img->text($options['text'], 690, 360, function($font) {
+            $font->file(public_path('font') . '/AgencyFB.ttf');
+            $font->size(64);
+            $font->color('#1E90FF');
         });
 
         // clock
-        $img->text(date('h:i'), 1350, 100, function($font) {
-            $font->file(public_path('font') . '/Werfus.ttf');
-            $font->size(100);
-            $font->color('#DAA520');
+        date_default_timezone_set('Asia/Novosibirsk');
+        $img->text(date('H:i'), 1380, 100, function($font) {
+            $font->file(public_path('font') . '/AgencyFB.ttf');
+            $font->size(64);
+            $font->color('#FFFFFF');
         });
 
         $img->resize(795, 200);
-        $img->save(storage_path('app/public') . '/' . $options['file_out']);
+        $img->save($options['file_out']);
 	}
 }

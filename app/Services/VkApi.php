@@ -21,7 +21,7 @@ class VkApi
 	
 	function __construct()
 	{
-		$accessToken = "dabbe858a18330263275d401d783766f110f5593c600b3488ceda394abd4e86e7f82dd7b5b9b42bccdb23";
+		$accessToken = "304edfdf6e791448ca75c9b628d5b8dc17b2d11465905e54cb6f7fe1045dffe40d8aa7c6e7cec4ad234ac";
 		$this->vk = \getjump\Vk\Core::getInstance()->apiVersion('5.63')->setToken($accessToken);
 	}
 

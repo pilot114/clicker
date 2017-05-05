@@ -39,15 +39,23 @@ class PushCover extends Command
      */
     public function handle(ImageProccessing $image, VkApi $vk)
     {
-        $texts = ['Привет Руся', 'Шимбердробля', 'Ya TExTazaza'];
+        $texts = [
+            "Продвижение сообществ vk",
+            "Продвижение instgram",
+            "Анализ вашего бизнеса",
+            "Продвижение в поисковых системах",
+            "Бизнес консалтинг",
+            "Youtube продвижение",
+            "Создание landing page"
+        ];
         $text = $texts[array_rand($texts)];
         $options = [
-            'file_in'  => 'cover.jpg',
-            'file_out' => 'cover2.jpg',
+            'file_in'  => storage_path('public') . '/' . 'cover.png',
+            'file_out' => storage_path('public') . '/' . 'cover2.png',
             'text'     => $text
         ];
         $image->buildCover($options);
-        $cover = fopen(storage_path('app/public') . '/cover2.jpg', 'r');
+        $cover = fopen($options['file_out'], 'r');
         $coverArray = $vk->uploadGroupCover(['group_id' => 141515764], $cover);
 
         return $coverArray;
