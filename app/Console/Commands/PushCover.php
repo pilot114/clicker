@@ -50,8 +50,8 @@ class PushCover extends Command
         ];
         $text = $texts[array_rand($texts)];
         $options = [
-            'file_in'  => storage_path('public') . '/' . 'cover.png',
-            'file_out' => storage_path('public') . '/' . 'cover2.png',
+            'file_in'  => public_path('covers') . '/' . 'cover.png',
+            'file_out' => public_path('covers') . '/' . 'cover2.png',
             'text'     => $text
         ];
         $image->buildCover($options);
