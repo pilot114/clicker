@@ -12,4 +12,5 @@
 
 ## TODO:
 
+прокинуть ssh ключ для workspace
 перенести генерацию контейнера с selenium+tor proxy в проект
